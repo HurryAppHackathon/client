@@ -1,0 +1,10 @@
+/home/nevermind/Documents/hackathon/old-client/target/debug/deps/gloo_console-9bb1c5271e722127.rmeta: /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/lib.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/console_dbg.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/counter.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/externs.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/macros.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/timer.rs
+
+/home/nevermind/Documents/hackathon/old-client/target/debug/deps/gloo_console-9bb1c5271e722127.d: /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/lib.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/console_dbg.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/counter.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/externs.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/macros.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/timer.rs
+
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/lib.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/console_dbg.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/counter.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/externs.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/macros.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/gloo-console-0.2.3/src/timer.rs:

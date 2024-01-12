@@ -1,0 +1,10 @@
+/home/nevermind/Documents/hackathon/old-client/target/debug/deps/futures_channel-b72e566103a12b10.rmeta: /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/lib.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/lock.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/mpsc/mod.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/mpsc/queue.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/mpsc/sink_impl.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/oneshot.rs
+
+/home/nevermind/Documents/hackathon/old-client/target/debug/deps/futures_channel-b72e566103a12b10.d: /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/lib.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/lock.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/mpsc/mod.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/mpsc/queue.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/mpsc/sink_impl.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/oneshot.rs
+
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/lib.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/lock.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/mpsc/mod.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/mpsc/queue.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/mpsc/sink_impl.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/futures-channel-0.3.25/src/oneshot.rs:

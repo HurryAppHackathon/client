@@ -1,0 +1,12 @@
+/home/nevermind/Documents/hackathon/old-client/target/debug/deps/yewdux-4d76b12996c757c2.rmeta: /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/lib.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/context.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/dispatch.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/functional.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/listener.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/mrc.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/store.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/subscriber.rs
+
+/home/nevermind/Documents/hackathon/old-client/target/debug/deps/yewdux-4d76b12996c757c2.d: /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/lib.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/context.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/dispatch.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/functional.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/listener.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/mrc.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/store.rs /home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/subscriber.rs
+
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/lib.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/context.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/dispatch.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/functional.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/listener.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/mrc.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/store.rs:
+/home/nevermind/.cargo/registry/src/index.crates.io-6f17d22bba15001f/yewdux-0.9.2/src/subscriber.rs:
