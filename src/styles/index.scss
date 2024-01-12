@@ -1,14 +1,15 @@
 @import url('https://use.typekit.net/oet8egg.css');
-@import "utilities/variables";
+@import 'utilities/variables';
 
 * {
   margin: 0;
   padding: 0;
+  font-family: Oswald, Helvetica, sans-serif;
 }
 
 body {
   color: $font-color-primary;
-  background-color: $white;
+  background-color: $application-bg;
   font-family: Oswald, Helvetica, sans-serif;
   overflow: hidden;
 }

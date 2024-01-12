@@ -1,11 +1,13 @@
 import { h } from 'preact';
-import '../styles/index.scss';
 import { Outlet, Router, ReactLocation, Route } from '@tanstack/react-location';
-import { } from './pages';
+import { Login } from './pages';
+import '../styles/index.scss';
 
 const routes: Route[] = [
   {
-    children: [],
+    children: [
+      { path: `login`, element: <Login /> },
+    ],
   },
 ];
 
