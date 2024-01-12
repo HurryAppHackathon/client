@@ -1,5 +1,6 @@
 declare const classNames: {
   readonly container: 'container';
+  readonly wrapper: 'wrapper';
   readonly login_container: 'login_container';
   readonly header_container: 'header_container';
   readonly depth: 'depth';
