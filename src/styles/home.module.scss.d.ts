@@ -12,25 +12,17 @@ declare const classNames: {
   readonly name: 'name';
   readonly description: 'description';
   readonly content: 'content';
+  readonly add_video: 'add_video';
   readonly video: 'video';
   readonly background: 'background';
   readonly text: 'text';
+  readonly video_settings: 'video_settings';
+  readonly wrapper: 'wrapper';
+  readonly edit_video_container: 'edit_video_container';
+  readonly inputs: 'inputs';
+  readonly public: 'public';
+  readonly object: 'object';
+  readonly upload_video: 'upload_video';
+  readonly upload_container: 'upload_container';
 };
-export default classNames;
-export type ClassNames =
-  | 'container'
-  | 'chat_section'
-  | 'video_section'
-  | 'sidebar'
-  | 'head'
-  | 'divider'
-  | 'options'
-  | 'tail'
-  | 'home'
-  | 'title'
-  | 'name'
-  | 'description'
-  | 'content'
-  | 'video'
-  | 'background'
-  | 'text';
+export = classNames;

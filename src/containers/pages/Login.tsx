@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import styles from '../../styles/login.module.scss';
-// import { Api } from '../../utils/client';
+import { Api } from '../../utils/client';
 export function Login() {
   const api = new Api();
   return (

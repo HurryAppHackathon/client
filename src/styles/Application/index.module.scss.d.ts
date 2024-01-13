@@ -10,15 +10,4 @@ declare const classNames: {
   readonly members: 'members';
   readonly tail: 'tail';
 };
-export default classNames;
-export type ClassNames =
-  | 'container'
-  | 'wrap'
-  | 'title'
-  | 'chat_section'
-  | 'video_section'
-  | 'members_section'
-  | 'head'
-  | 'divider'
-  | 'members'
-  | 'tail';
+export = classNames;

@@ -3,16 +3,18 @@ import styles from '../../styles/Application/index.module.scss';
 import LeaveSVG from '../../assets/leave.svg';
 
 export function Wrap({
+  onClick,
   image,
   title,
   color,
 }: {
+  onClick?: Function,
   image?: string;
   title: string;
   color?: string;
 }) {
   return (
-    <div className={styles.wrap}>
+    <div onClick={onClick ? onClick as any : () => {}} className={styles.wrap}>
       {image ? <img src={image} alt="" /> : ``}
       <div className={styles.title} style={{ color }}>
         {title}
