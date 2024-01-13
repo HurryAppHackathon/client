@@ -24,5 +24,12 @@ declare const classNames: {
   readonly object: 'object';
   readonly upload_video: 'upload_video';
   readonly upload_container: 'upload_container';
+  readonly create_party: 'create_party';
+  readonly create_party_container: 'create_party_container';
+  readonly parties: 'parties';
+  readonly party: 'party';
+  readonly add_container: 'add_container';
+  readonly add: 'add';
+  readonly user: 'user';
 };
 export = classNames;

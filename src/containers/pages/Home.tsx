@@ -1,11 +1,11 @@
-import { h } from 'preact';
+import { Fragment, h } from 'preact';
 import styles from '../../styles/home.module.scss';
 import { Wrap } from '../../components/Application';
 import { useEffect, useState } from 'preact/hooks';
 import React from 'preact/compat';
 import { usePopup } from 'react-hook-popup';
 import { toast } from 'react-toastify';
-import { Dropzone , FileMosaic} from '@files-ui/react';
+import { Dropzone, FileMosaic } from '@files-ui/react';
 export function Home() {
   const options: {
     name: string;
@@ -25,7 +25,7 @@ export function Home() {
     },
   ];
 
-  const [current, setCurrent] = useState(options[0]);
+  const [current, setCurrent] = useState(options[1]);
 
   function GetCurrent() {
     return current.jsx();
@@ -66,8 +66,82 @@ export function Home() {
     </div>
   );
 }
+
 function Parties() {
-  return <div>parties</div>;
+  const [showCreateParty, hideCreateParty] = usePopup(
+    'create_party',
+    CreateParty,
+  );
+  function CreateParty() {
+    const [isPublic, setPublic] = useState(false);
+    return (
+      <div class={styles.create_party}>
+        <div className={styles.wrapper} onClick={() => hideCreateParty()}>
+          <div
+            class={styles.create_party_container}
+            onClick={(p) => p.stopPropagation()}
+          >
+            <input type="text" placeholder={"Name of event"} />
+            <div
+                  class={styles.public}
+                  onClick={() => {
+                    setPublic(!isPublic);
+                  }}
+                >
+                  <div class={styles.text}>is public: </div>
+                  <div class={styles.object}>
+                    <div>
+                      {isPublic ? (
+                        <svg
+                          width={15}
+                          height={15}
+                          fill={'rgb(30, 255, 0)'}
+                          clip-rule="evenodd"
+                          fill-rule="evenodd"
+                          stroke-linejoin="round"
+                          stroke-miterlimit="2"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="m2.25 12.321 7.27 6.491c.143.127.321.19.499.19.206 0 .41-.084.559-.249l11.23-12.501c.129-.143.192-.321.192-.5 0-.419-.338-.75-.749-.75-.206 0-.411.084-.559.249l-10.731 11.945-6.711-5.994c-.144-.127-.322-.19-.5-.19-.417 0-.75.336-.75.749 0 .206.084.412.25.56"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <button>Create!</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div class={styles.parties}>
+      <div className={styles.party}>
+        <div>
+          <img src="https://i.pravatar.cc/500" alt="" />
+          <div class={styles.name}>
+            <div class={styles.title}>Name of the party</div>
+            <div class={styles.user}>
+              <img src="https://i.pravatar.cc/400" alt="" />
+              <div class={styles.name}>Mr.Kasper</div>
+            </div>
+          </div>
+        </div>
+        <button>Join</button>
+      </div>
+      <div className={styles.party} onClick={() => showCreateParty()}>
+        <div class={styles.add_container}>
+          <div class={styles.add}>+</div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function MyVideos() {
@@ -79,7 +153,7 @@ function MyVideos() {
     const [isPublic, setPublic] = useState(true);
     return (
       // onClick={() => hidePopup()}
-      <>
+      <Fragment>
         <div
           className={styles.video_settings}
           onClick={() => hideVideoSettings()}
@@ -139,20 +213,20 @@ function MyVideos() {
             </div>
           </div>
         </div>
-      </>
+      </Fragment>
     );
   }
 
   const [showUploadVideo, hideUploadVideo] = usePopup('add_video', UploadVideo);
-  useEffect(() => {
-    showUploadVideo();
-  }, []);
+  // useEffect(() => {
+  //   showUploadVideo();
+  // }, []);
   function UploadVideo() {
     const [isPublic, setPublic] = useState(true);
     const [files, setFiles] = useState([]);
     const updateFiles = (incommingFiles: any) => {
       //do something with the files
-      console.log("incomming files", incommingFiles);
+      console.log('incomming files', incommingFiles);
       setFiles(incommingFiles);
       //even your own upload implementation
     };
@@ -160,29 +234,34 @@ function MyVideos() {
       setFiles(files.filter((x) => x.id !== id));
     };
     useEffect(() => {
-      console.log(files)
-    },[files])
+      console.log(files);
+    }, [files]);
     return (
       // onClick={() => hidePopup()}
       <>
-        <div className={styles.upload_video} >
+        <div className={styles.upload_video}>
           <div className={styles.wrapper} onClick={() => hideUploadVideo()}>
-            <div class={styles.upload_container} onClick={(e) => e.stopPropagation()}>
-                <Dropzone 
-                  maxFiles={3}
-                  maxFileSize={2 * 1024*1024 * 1000}
-                  accept="video/*"
-                                  onChange={updateFiles} value={files}>
-                  {files.map((file: any) => (
-                    <FileMosaic
-                      key={file.id}
-                      {...file}
-                      onDelete={removeFile}
-                      info
-                    />
-                  ))}
-                </Dropzone>
-                <button>Save</button>
+            <div
+              class={styles.upload_container}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Dropzone
+                maxFiles={3}
+                maxFileSize={2 * 1024 * 1024 * 1000}
+                accept="video/*"
+                onChange={updateFiles}
+                value={files}
+              >
+                {files.map((file: any) => (
+                  <FileMosaic
+                    key={file.id}
+                    {...file}
+                    onDelete={removeFile}
+                    info
+                  />
+                ))}
+              </Dropzone>
+              <button>Save</button>
             </div>
           </div>
         </div>
@@ -196,8 +275,7 @@ function MyVideos() {
       <div onClick={() => showUploadVideo()} class={styles.add_video}>
         +
       </div>
-      {/* <Video />
-          <Video /> <Video /> <Video /> <Video /> <Video /> <Video /> */}
+    
     </div>
   );
 }
