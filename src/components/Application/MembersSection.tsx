@@ -2,7 +2,7 @@ import { h } from 'preact';
 import styles from '../../styles/Application/index.module.scss';
 import LeaveSVG from '../../assets/leave.svg';
 
-function Wrap({
+export function Wrap({
   image,
   title,
   color,
@@ -13,7 +13,7 @@ function Wrap({
 }) {
   return (
     <div className={styles.wrap}>
-      {image ? <img src={image} alt="" /> : ''}
+      {image ? <img src={image} alt="" /> : ``}
       <div className={styles.title} style={{ color }}>
         {title}
       </div>
@@ -29,9 +29,9 @@ export function MembersSection() {
         <div className={styles.divider} />
       </div>
       <div className={styles.members}>
-        <Wrap image={'https://i.pravatar.cc/300'} title="Ahmed Ali" />
-        <Wrap image={'https://i.pravatar.cc/500'} title="Ali Yosif" />
-        <Wrap image={'https://i.pravatar.cc/400'} title="Mariam Mohammed" />
+        <Wrap image={`https://i.pravatar.cc/300`} title="Ahmed Ali" />
+        <Wrap image={`https://i.pravatar.cc/500`} title="Ali Yosif" />
+        <Wrap image={`https://i.pravatar.cc/400`} title="Mariam Mohammed" />
       </div>
 
       <div className={styles.tail}>
@@ -40,7 +40,7 @@ export function MembersSection() {
           image={LeaveSVG as unknown as string}
           color="red"
           title="Leave Party!"
-        />	
+        />
       </div>
     </div>
   );

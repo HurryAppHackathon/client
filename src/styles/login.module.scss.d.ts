@@ -10,4 +10,15 @@ declare const classNames: {
   readonly login_span: 'login_span';
   readonly vector_section: 'vector_section';
 };
-export = classNames;
+export default classNames;
+export type ClassNames =
+  | 'container'
+  | 'wrapper'
+  | 'login_container'
+  | 'header_container'
+  | 'depth'
+  | 'title_container'
+  | 'title'
+  | 'paragraph'
+  | 'login_span'
+  | 'vector_section';
