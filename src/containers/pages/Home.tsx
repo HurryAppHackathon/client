@@ -6,19 +6,41 @@ import React from 'preact/compat';
 import { usePopup } from 'react-hook-popup';
 import { toast } from 'react-toastify';
 import { Dropzone, FileMosaic } from '@files-ui/react';
+import { Api, ApiClient } from '../../utils/client';
+import { IParty, IUser, TParties } from 'src/utils/interfaces';
+import PartySVG from '../../assets/party.svg'
+// import MyVideosSVG from '../../assets/party.svg'
 export function Home() {
+  const [user, setUser] = useState<IUser>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const api_client = new ApiClient();
+  useEffect(() => {
+    (async () => {
+      try {
+        const user = await api_client.getUser();
+        setUser(user);
+        setLoading(false);
+      } catch (_err) {
+        location.href = '/login';
+      }
+    })();
+  }, []);
+
   const options: {
     name: string;
+    icon: string,
     jsx: () => h.JSX.Element;
     description: string;
   }[] = [
     {
+      icon: "",
       name: 'My videos',
       jsx: MyVideos,
       description: 'You can see all your videos here',
     },
 
     {
+      icon: "",
       name: 'Explore',
       description: "Let's explore",
       jsx: Parties,
@@ -31,25 +53,25 @@ export function Home() {
     return current.jsx();
   }
 
-  return (
+  return !loading ? (
     <div className={styles.container}>
       <div className={styles.sidebar}>
         <div class={styles.head}>
-          <Wrap title="My name" />
+          <Wrap title="Hurry App Hackathon" />
           <div class={styles.divider} />
         </div>
         <div class={styles.options}>
           {options.map((option, i) => (
             <Wrap
               onClick={() => setCurrent(options[i])}
-              image={` `}
+              image={option.icon}
               title={option.name}
             ></Wrap>
           ))}
         </div>
         <div class={styles.tail}>
           <div className={styles.divider} />
-          <Wrap image={` `} title="My name" />
+          <Wrap image={user?.data.user.avatar_url} title={(user?.data.user.username)} />
         </div>
       </div>
       <div className={styles.home}>
@@ -64,10 +86,26 @@ export function Home() {
         <GetCurrent />
       </div>
     </div>
+  ) : (
+    'Loading'
   );
 }
 
 function Parties() {
+  const api = new Api();
+  const [loading, setLoading] = useState(true);
+  const [parties, setParties] = useState<IParty[]>([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const parties = (await api.parties.getAll('public')).data;
+        setParties(parties.data);
+        setLoading(false);
+      } catch (err) {
+        toast.error(err.response.data.message);
+      }
+    })();
+  }, []);
   const [showCreateParty, hideCreateParty] = usePopup(
     'create_party',
     CreateParty,
@@ -81,7 +119,11 @@ function Parties() {
             class={styles.create_party_container}
             onClick={(p) => p.stopPropagation()}
           >
-            <input type="text" placeholder={'Name of event'} />
+            <input
+              className={styles.ipt}
+              type="text"
+              placeholder={'Name of event'}
+            />
             <div
               class={styles.public}
               onClick={() => {
@@ -122,19 +164,21 @@ function Parties() {
   }
   return (
     <div class={styles.parties}>
-      <div className={styles.party}>
+      {parties.map((party) => (
+        <div className={styles.party}>
         <div>
-          <img src="https://i.pravatar.cc/500" alt="" />
+          <img src={party.image_url} alt="" />
           <div class={styles.name}>
-            <div class={styles.title}>Name of the party</div>
+            <div class={styles.title}>{party.name}</div>
             <div class={styles.user}>
-              <img src="https://i.pravatar.cc/400" alt="" />
-              <div class={styles.name}>Mr.Kasper</div>
+              <img src={party.owner.avatar_url} alt="" />
+              <div class={styles.name}>{party.owner.username}</div>
             </div>
           </div>
         </div>
-        <button>Join</button>
+        <button onClick={() => location.href = `/app/${party.id}`}>Join</button>
       </div>
+      ))}
       <div className={styles.party} onClick={() => showCreateParty()}>
         <div class={styles.add_container}>
           <div class={styles.add}>+</div>
@@ -171,9 +215,19 @@ function MyVideos() {
               </video>
               <div class={styles.inputs}>
                 Title:
-                <input type="text" placeholder={''} value={'test'} />
+                <input
+                  className={styles.ipt}
+                  type="text"
+                  placeholder={''}
+                  value={'test'}
+                />
                 Description:
-                <input type="text" placeholder={''} value={'description'} />
+                <input
+                  className={styles.ipt}
+                  type="text"
+                  placeholder={''}
+                  value={'description'}
+                />
                 <button onClick={() => toast.success('Data Saved!')}>
                   Save
                 </button>

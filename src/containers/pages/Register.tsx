@@ -2,16 +2,16 @@ import { h } from 'preact';
 import styles from '../../styles/login.module.scss';
 import { ApiClient } from '../../utils/client';
 import { useForm, SubmitHandler } from "react-hook-form"
-import { LoginDto, RegisterDto } from 'src/utils/interfaces';
+import { RegisterDto } from 'src/utils/interfaces';
 import {toast } from 'react-toastify'
 
 
 
 
-export function Login() {  
+export function Register() {  
   const client = new ApiClient();
-  const onSubmit: SubmitHandler<LoginDto> =  async (data) => {
-    let res = await client.login(data);
+  const onSubmit: SubmitHandler<RegisterDto> =  async (data) => {
+    let res = await client.register(data);
     if(res) {
       toast.success("you are going to be redirected to home page in 3 seconds!");
       setTimeout(() => {
@@ -33,22 +33,27 @@ export function Login() {
             <div class={styles.depth}>START FOR FREE</div>
             <div className={styles.title_container}>
               <div class={styles.title}>
-                Welcome back<span style={{ color: `#FF4646` }}>!</span>
+                Create new account<span style={{ color: `#FF4646` }}>.</span>
               </div>
               <div class={styles.paragraph}>
-                Create account?
-                <a href="/register" className={styles.login_span}>
+                Already have an account?
+                <a href="/login" className={styles.login_span}>
                   {" "}
-                  Register
+                  log In
                 </a>
               </div>
             </div>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <input {...register("first_name")} type="text" placeholder={`First Name`} />
+              <input {...register("last_name")} type="text" placeholder={`Last Name`} />
+            </div>
             <input {...register("username")} type="text" placeholder={`Username`} />
+            <input {...register("email")} type="email" placeholder={`example@gmail.com`} />
             <input {...register("password")} type="password" placeholder={`******`} />
             <div>
-              <button disabled>Another Method</button>
+              <button>Another Method</button>
               <button type="submit"
               //  onClick={async (e) => {
               //     e.preventDefault();
@@ -61,7 +66,7 @@ export function Login() {
               //     });
                 // }}
               >
-                Login
+                Create Account
               </button>
             </div>
           </form>

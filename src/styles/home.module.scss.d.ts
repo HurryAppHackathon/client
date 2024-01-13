@@ -16,6 +16,7 @@ declare const classNames: {
   readonly video: 'video';
   readonly background: 'background';
   readonly text: 'text';
+  readonly ipt: 'ipt';
   readonly video_settings: 'video_settings';
   readonly wrapper: 'wrapper';
   readonly edit_video_container: 'edit_video_container';

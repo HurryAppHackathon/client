@@ -1,6 +1,6 @@
 import { h } from 'preact';
-import { Outlet, Router, ReactLocation, Route } from '@tanstack/react-location';
-import { Application, Home, Login } from './pages';
+import { Outlet, Router, ReactLocation, Route, useRouter, useLoadRoute } from '@tanstack/react-location';
+import { Application, Home, Login, Register } from './pages';
 import '../styles/index.scss';
 import { PopupProvider } from 'react-hook-popup';
 import 'video.js/dist/video-js.css';
@@ -9,15 +9,17 @@ import { ToastContainer } from 'react-toastify';
 const routes: Route[] = [
   {
     children: [
+      { path: `register`, element: <Register /> },
       { path: `login`, element: <Login /> },
+      { path: `app/:id`, element: <Application /> },
       { path: `/`, element: <Home /> },
-      { path: `app`, element: <Application /> },
     ],
   },
-];
+];  
 
 export function App() {
-  const location = new ReactLocation();
+
+  const location = new ReactLocation(); 
   return (
     <Router location={location} routes={routes}>
       <PopupProvider>

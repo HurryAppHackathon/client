@@ -131,7 +131,7 @@
     }
   }
 }
-input {
+.ipt {
   width: 60%;
   height: 60%;
   color: #fff;
@@ -184,7 +184,6 @@ input {
         display: flex;
         flex-direction: column;
 
-
         button {
           font-size: 16px;
           font-style: normal;
@@ -199,7 +198,6 @@ input {
           cursor: pointer;
           font-weight: 500;
         }
-        
       }
     }
   }
@@ -314,10 +312,8 @@ input {
   }
 }
 
-
-
-
 .parties {
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -331,10 +327,10 @@ input {
       align-items: center;
       .add {
         font-size: 50px;
-color: greenyellow;
+        color: greenyellow;
       }
     }
-    max-width: 2000px;  
+    max-width: 2000px;
     // font-family: Inter !important;
     // & > * {
     //   font-family: Inter !important;
