@@ -1,0 +1,407 @@
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.chat_section {
+  min-width: 322px;
+  background-color: #1c1c1c;
+}
+.video_section {
+  display: flex;
+  width: 100%;
+  background-color: #161616;
+}
+.sidebar {
+  min-width: 305px;
+  padding-inline: 16px;
+  padding-block: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: #111;
+  & > .head {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    & > .divider {
+      width: 101px;
+      height: 1px;
+      background: #595959;
+    }
+  }
+  & > .options {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  & > .tail {
+    height: fit-content;
+  }
+}
+
+.home {
+  width: 100%;
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  & > .head {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+    & > .title {
+      align-items: center;
+      display: flex;
+      gap: 20px;
+      & > .name {
+        color: #fff;
+        font-family: Oswald;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+      & > .divider {
+        background: #717171;
+        width: 1px;
+        height: 10px;
+      }
+      & > .description {
+        color: #fff;
+
+        font-family: Oswald;
+        font-size: 16px;
+        font-style: normal;
+        line-height: normal;
+      }
+    }
+    & > .divider {
+      max-width: 656px;
+      background: rgba(255, 255, 255, 0.1);
+      height: 1px;
+    }
+  }
+  gap: 24px;
+  & > .content {
+    display: flex;
+    max-width: 2000px;
+    gap: 24px;
+    flex-wrap: wrap;
+    & > .add_video {
+      cursor: pointer;
+      width: 100%;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 50px;
+      max-width: 336px;
+      max-height: 188px;
+      border: 1px solid #ffffff48;
+    }
+    & > .video {
+      border-radius: 10px;
+      max-width: 336px;
+      max-height: 188px;
+      position: relative;
+      & > img {
+        width: 100%;
+        height: 100%;
+      }
+      & > .background {
+        background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+        rotate: 180deg;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      & > .text {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+      }
+    }
+  }
+}
+input {
+  width: 60%;
+  height: 60%;
+  color: #fff;
+  font-family: Oswald;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  padding: 16px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  border: 1px solid rgba(#fff, 0.1);
+  background-color: #111;
+}
+.video_settings {
+  background-color: #0000005c;
+
+  z-index: 101;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  & > .wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > .edit_video_container {
+      max-width: 800px;
+      min-height: 800px;
+      background-color: rgb(34, 34, 34);
+      & > video {
+        object-fit: fill;
+        width: 100%;
+        height: min-content;
+      }
+      & > .inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        padding: 20px;
+        position: relative;
+        width: calc(100% - 40px);
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+
+        button {
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          padding: 16px;
+          margin-top: 20px;
+          width: 60%;
+          border-radius: 10px;
+          border: 1px solid rgba(#fff, 0.1);
+          background-color: #111;
+          color: rgb(44, 202, 0);
+          cursor: pointer;
+          font-weight: 500;
+        }
+        
+      }
+    }
+  }
+}
+
+.public {
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  display: flex;
+  gap: 8px;
+
+  & > .object {
+    min-width: 30px;
+    width: 30px;
+    min-height: 30px;
+    height: 30px;
+    background-color: #ffffff0e;
+    display: flex;
+    align-items: center;
+    border-radius: 100%;
+    justify-content: center;
+    & > div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 20px;
+      height: 20px;
+      // background: black;
+      border-radius: 100%;
+    }
+  }
+}
+
+.upload_video {
+  background-color: #0000005c;
+
+  z-index: 101;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  & > .wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > .upload_container {
+      padding: 20px;
+      width: 800px;
+      min-height: fit-content;
+      background-color: rgb(34, 34, 34);
+      button {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        padding: 16px;
+        margin-top: 20px;
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid rgba(#fff, 0.1);
+        background-color: #111;
+        color: rgb(44, 202, 0);
+        cursor: pointer;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.create_party {
+  background-color: #0000005c;
+
+  z-index: 101;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+  & > .wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > .create_party_container {
+      padding: 20px;
+      width: 800px;
+      min-height: fit-content;
+      background-color: rgb(34, 34, 34);
+      position: relative;
+      button {
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        padding: 16px;
+        margin-top: 20px;
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid rgba(#fff, 0.1);
+        background-color: #111;
+        color: rgb(44, 202, 0);
+        cursor: pointer;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+
+
+
+.parties {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  .party {
+    .add_container {
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .add {
+        font-size: 50px;
+color: greenyellow;
+      }
+    }
+    max-width: 2000px;  
+    // font-family: Inter !important;
+    // & > * {
+    //   font-family: Inter !important;
+    // }
+    // font-family: Inter !important;
+    border-radius: 10px;
+    border: 1px solid #3d3d3d;
+    background: #161616;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    height: 80px;
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      & > img {
+        border-radius: 100%;
+        width: 48px;
+        height: 48px;
+      }
+      & > .name {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        & > .title {
+          font-family: Inter !important;
+          color: #fff;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: normal;
+        }
+        & > .user {
+          display: flex;
+          gap: 8px;
+          align-items: center;
+          & > .name {
+            font-family: Inter !important;
+            color: #fff;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+          }
+          & > img {
+            border-radius: 100%;
+            width: 20px;
+            height: 20px;
+          }
+        }
+      }
+    }
+    & > button {
+      font-family: Inter !important;
+      color: rgb(80, 240, 0);
+      cursor: pointer;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      border: 1px solid #3d3d3d;
+      background: rgba(33, 33, 33, 0.6);
+      display: flex;
+      padding: 12px 18px;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
