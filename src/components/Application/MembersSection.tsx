@@ -9,13 +9,16 @@ export function Wrap({
   title,
   color,
 }: {
-  onClick?: Function,
+  onClick?: Function;
   image?: string;
   title: string;
   color?: string;
 }) {
   return (
-    <div onClick={onClick ? onClick as any : () => {}} className={styles.wrap}>
+    <div
+      onClick={onClick ? (onClick as any) : () => {}}
+      className={styles.wrap}
+    >
       {image ? <img src={image} alt="" /> : ``}
       <div className={styles.title} style={{ color }}>
         {title}
@@ -24,23 +27,23 @@ export function Wrap({
   );
 }
 
-export function MembersSection() {
+export function MembersSection({ party }: { party?: IParty }) {
   return (
     <div className={styles.members_section}>
       <div className={styles.head}>
-        <Wrap title={"Party name"} />
+        <Wrap title={party?.name} />
         <div className={styles.divider} />
       </div>
       <div className={styles.members}>
-        <Wrap image={`https://i.pravatar.cc/300`} title="Ahmed Ali" />
-        <Wrap image={`https://i.pravatar.cc/500`} title="Ali Yosif" />
-        <Wrap image={`https://i.pravatar.cc/400`} title="Mariam Mohammed" />
+        {party?.members.map((member) => (
+          <Wrap image={member.avatar_url} title={member.username} />
+        ))}
       </div>
 
       <div className={styles.tail}>
         <div className={styles.divider}></div>
         <Wrap
-        onClick={() => location.href = '/'}
+          onClick={() => (location.href = '/')}
           image={LeaveSVG as unknown as string}
           color="red"
           title="Leave Party!"

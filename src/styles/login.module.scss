@@ -85,5 +85,8 @@
     background-color: #FF4646;
     min-width: 325px;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }

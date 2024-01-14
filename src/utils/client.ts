@@ -2,7 +2,11 @@ import axios, { AxiosError } from 'axios';
 import Cookies from 'universal-cookie';
 import { toast } from 'react-toastify';
 import {
+  CreatePartyDto,
+  EditVideoDto,
+  IParty,
   IUser,
+  IVideo,
   LoginDto,
   RegisterDto,
   RegisterRes,
@@ -45,11 +49,12 @@ export class ApiClient {
 
 export class Api {
   axios = axios.create({
-    baseURL: 'http://172.20.10.6:40000/api/v1',
+    baseURL: 'http://104.248.128.150:40000/api/v1',
     withCredentials: true,
   });
   auth = new Auth(this);
   parties = new Parties(this);
+  videos = new Videos(this);
   constructor() {
     this.axios.defaults.headers = {
       Accept: 'application/json',
@@ -78,7 +83,42 @@ class Parties {
   getAll(type?: TMethod) {
     return this.api.axios.get<TParties>('parties?type=' + type);
   }
+  get_hack(id: string) {
+    return this.api.axios.get<{ data: IParty }>('parties/' + id, {
+      headers: {
+        Authorization:
+          'Bearer 22|7RNMgsOC4rAzrxt5r3X587V5oAj9buN62vU2DrtX0c8793e2',
+      },
+    });
+  }
   get(id: string) {
-    return this.api.axios.get<TParties>('parties/' + id);
+    return this.api.axios.get<{ data: IParty }>('parties/' + id);
+  }
+  create(data: CreatePartyDto) {
+    return this.api.axios.post<{ data: IParty }>('parties', data);
+  }
+}
+
+class Videos {
+  constructor(public api: Api) {}
+  upload_videos(body: FormData) {
+    return this.api.axios.post('/videos', body, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
+
+  getAll(type?: TMethod) {
+    return this.api.axios.get<{ data: IVideo['data'][] }>(
+      'videos?type=' + type,
+    );
+  }
+  get(id: string) {
+    return this.api.axios.get<IVideo>('videos/' + id);
+  }
+
+  edit(id: number, data: EditVideoDto) {
+    return this.api.axios.patch<IVideo>('videos/' + id, data);
   }
 }

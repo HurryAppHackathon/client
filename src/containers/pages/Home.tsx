@@ -5,10 +5,10 @@ import { useEffect, useState } from 'preact/hooks';
 import React from 'preact/compat';
 import { usePopup } from 'react-hook-popup';
 import { toast } from 'react-toastify';
-import { Dropzone, FileMosaic } from '@files-ui/react';
+import { Dropzone, ExtFile, FileMosaic } from '@files-ui/react';
 import { Api, ApiClient } from '../../utils/client';
-import { IParty, IUser, TParties } from 'src/utils/interfaces';
-import PartySVG from '../../assets/party.svg'
+import { IParty, IUser, IVideo, TParties } from 'src/utils/interfaces';
+import PartySVG from '../../assets/party.svg';
 // import MyVideosSVG from '../../assets/party.svg'
 export function Home() {
   const [user, setUser] = useState<IUser>();
@@ -28,26 +28,26 @@ export function Home() {
 
   const options: {
     name: string;
-    icon: string,
+    icon: string;
     jsx: () => h.JSX.Element;
     description: string;
   }[] = [
     {
-      icon: "",
+      icon: '',
       name: 'My videos',
       jsx: MyVideos,
       description: 'You can see all your videos here',
     },
 
     {
-      icon: "",
+      icon: '',
       name: 'Explore',
       description: "Let's explore",
       jsx: Parties,
     },
   ];
 
-  const [current, setCurrent] = useState(options[1]);
+  const [current, setCurrent] = useState(options[0]);
 
   function GetCurrent() {
     return current.jsx();
@@ -71,7 +71,10 @@ export function Home() {
         </div>
         <div class={styles.tail}>
           <div className={styles.divider} />
-          <Wrap image={user?.data.user.avatar_url} title={(user?.data.user.username)} />
+          <Wrap
+            image={user?.data.user.avatar_url}
+            title={user?.data.user.username}
+          />
         </div>
       </div>
       <div className={styles.home}>
@@ -111,6 +114,7 @@ function Parties() {
     CreateParty,
   );
   function CreateParty() {
+    const [name, setName] = useState('');
     const [isPublic, setPublic] = useState(false);
     return (
       <div class={styles.create_party}>
@@ -120,6 +124,8 @@ function Parties() {
             onClick={(p) => p.stopPropagation()}
           >
             <input
+              onChange={(c) => setName(c.currentTarget.value)}
+              value={name}
               className={styles.ipt}
               type="text"
               placeholder={'Name of event'}
@@ -156,7 +162,27 @@ function Parties() {
                 </div>
               </div>
             </div>
-            <button>Create!</button>
+            <button
+              onClick={async () => {
+                try {
+                  const res = await api.parties.create({
+                    name,
+                    is_public: `${Number(isPublic)}`,
+                  });
+                  toast.success('Party has been created!');
+                  toast.success(
+                    'you will be redirected into application page in 3 seconds!',
+                  );
+                  setTimeout(() => {
+                    location.href = '/app/' + res.data.data.id;
+                  }, 3000);
+                } catch (err) {
+                  toast.error(err.response.data.message);
+                }
+              }}
+            >
+              Create!
+            </button>
           </div>
         </div>
       </div>
@@ -166,18 +192,20 @@ function Parties() {
     <div class={styles.parties}>
       {parties.map((party) => (
         <div className={styles.party}>
-        <div>
-          <img src={party.image_url} alt="" />
-          <div class={styles.name}>
-            <div class={styles.title}>{party.name}</div>
-            <div class={styles.user}>
-              <img src={party.owner.avatar_url} alt="" />
-              <div class={styles.name}>{party.owner.username}</div>
+          <div>
+            <img src={party.image_url} alt="" />
+            <div class={styles.name}>
+              <div class={styles.title}>{party.name}</div>
+              <div class={styles.user}>
+                <img src={party.owner.avatar_url} alt="" />
+                <div class={styles.name}>{party.owner.username}</div>
+              </div>
             </div>
           </div>
+          <button onClick={() => (location.href = `/app/${party.id}`)}>
+            Join
+          </button>
         </div>
-        <button onClick={() => location.href = `/app/${party.id}`}>Join</button>
-      </div>
       ))}
       <div className={styles.party} onClick={() => showCreateParty()}>
         <div class={styles.add_container}>
@@ -189,15 +217,29 @@ function Parties() {
 }
 
 function MyVideos() {
+  const api = new Api();
+  const [videos, setVideos] = useState<IVideo['data'][]>([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const videos = (await api.videos.getAll('own')).data;
+        setVideos(videos.data);
+      } catch (err) {
+        toast.error('Something went wrong while getting videos');
+      }
+    })();
+  }, []);
   const [showVideoSettings, hideVideoSettings] = usePopup(
     'video_settings',
     VideoSettings,
   );
-  function VideoSettings() {
-    const [isPublic, setPublic] = useState(true);
+  function VideoSettings({ message: video }: { message: IVideo['data'] }) {
+    const [isPublic, setPublic] = useState(video.is_public);
+
+    const [description, setDescription] = useState(video.description);
+    const [name, setName] = useState(video.name);
     return (
-      // onClick={() => hidePopup()}
-      <Fragment>
+      <>
         <div
           className={styles.video_settings}
           onClick={() => hideVideoSettings()}
@@ -208,27 +250,39 @@ function MyVideos() {
               className={styles.edit_video_container}
             >
               <video width="320" height="240" controls>
-                <source
-                  src="http://172.20.10.6:9000/streamingapi/videos/2/dJdhYXC2z955jV1zNzoK0jijZpdOXUuygyQlSkML.mp4"
-                  type="video/mp4"
-                />
+                <source src={video.url} type="video/mp4" />
               </video>
               <div class={styles.inputs}>
-                Title:
+                Name:
                 <input
                   className={styles.ipt}
+                  onChange={(e) => setName(e.currentTarget.value.toString())}
                   type="text"
-                  placeholder={''}
-                  value={'test'}
+                  value={name}
+                  placeholder={'Name'}
                 />
                 Description:
                 <input
                   className={styles.ipt}
+                  onChange={(e) => setDescription(e.currentTarget.value.toString())}
                   type="text"
-                  placeholder={''}
-                  value={'description'}
+                  value={description}
+                  placeholder={'Name'}
                 />
-                <button onClick={() => toast.success('Data Saved!')}>
+                <button
+                  onClick={async () => {
+                    try {
+                      const res = await api.videos.edit(video.id, {
+                        name: name,
+                        description: description,
+                        is_public: `${Number(isPublic)}`,
+                      });
+                      toast.success('created');
+                    } catch (err) {
+                      toast.error(err.response.data.message);
+                    }
+                  }}
+                >
                   Save
                 </button>
                 <div
@@ -267,31 +321,58 @@ function MyVideos() {
             </div>
           </div>
         </div>
-      </Fragment>
+      </>
     );
   }
 
   const [showUploadVideo, hideUploadVideo] = usePopup('add_video', UploadVideo);
-  // useEffect(() => {
-  //   showUploadVideo();
-  // }, []);
-  function UploadVideo() {
+  function UploadVideo({ message }: { message: string }) {
+    const api = new Api();
     const [isPublic, setPublic] = useState(true);
-    const [files, setFiles] = useState([]);
+    const [files, setFiles] = useState<ExtFile[]>([]);
+    const [thumbnails, setThumbnails] = useState<ExtFile[]>([]);
+    const [description, setDescription] = useState('');
+    const upload = async () => {
+      const body = new FormData();
+      body.append('file', files[0]!.file);
+      body.append('thumbnail', thumbnails[0]!.file);
+      body.append('name', files[0].name);
+      body.append('description', description);
+      body.append('is_public', `${Number(isPublic)}`);
+      try {
+        await api.videos.upload_videos(body);
+        toast.success("Video has been uploaded!")
+        toast.success("you will be redirected in 3 seconds")
+        setTimeout(() => {
+          location.href = "/"
+        }, 3000)
+      } catch (err) {
+        toast.error(err.response.data.message);
+      }
+    };
+
     const updateFiles = (incommingFiles: any) => {
       //do something with the files
       console.log('incomming files', incommingFiles);
       setFiles(incommingFiles);
       //even your own upload implementation
     };
+
+    const updateThumbnails = (incommingFiles: any) => {
+      //do something with the files
+      console.log('incomming files', incommingFiles);
+      setThumbnails(incommingFiles);
+      //even your own upload implementation
+    };
     const removeFile = (id: any) => {
       setFiles(files.filter((x: any) => x.id !== id));
     };
-    useEffect(() => {
-      console.log(files);
-    }, [files]);
+
+    const removeThumbnail = (id: any) => {
+      setThumbnails(files.filter((x: any) => x.id !== id));
+    };
+
     return (
-      // onClick={() => hidePopup()}
       <>
         <div className={styles.upload_video}>
           <div className={styles.wrapper} onClick={() => hideUploadVideo()}>
@@ -299,8 +380,52 @@ function MyVideos() {
               class={styles.upload_container}
               onClick={(e) => e.stopPropagation()}
             >
+              <div>Video description: </div>
+              <input
+                class={styles.ipt}
+                type="text"
+                value={description}
+                onChange={(c) => setDescription(c.currentTarget.value)}
+                placeholder={'Description'}
+              />
+
+              <div
+                class={styles.public}
+                onClick={() => {
+                  setPublic(!isPublic);
+                }}
+              >
+                <div class={styles.text}>is public: </div>
+                <div class={styles.object}>
+                  <div>
+                    {isPublic ? (
+                      <svg
+                        width={15}
+                        height={15}
+                        fill={'rgb(30, 255, 0)'}
+                        clip-rule="evenodd"
+                        fill-rule="evenodd"
+                        stroke-linejoin="round"
+                        stroke-miterlimit="2"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m2.25 12.321 7.27 6.491c.143.127.321.19.499.19.206 0 .41-.084.559-.249l11.23-12.501c.129-.143.192-.321.192-.5 0-.419-.338-.75-.749-.75-.206 0-.411.084-.559.249l-10.731 11.945-6.711-5.994c-.144-.127-.322-.19-.5-.19-.417 0-.75.336-.75.749 0 .206.084.412.25.56"
+                          fill-rule="nonzero"
+                        />
+                      </svg>
+                    ) : (
+                      ''
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div>Upload the video: </div>
+
               <Dropzone
-                maxFiles={3}
+                maxFiles={1}
                 maxFileSize={2 * 1024 * 1024 * 1000}
                 accept="video/*"
                 onChange={updateFiles}
@@ -315,7 +440,31 @@ function MyVideos() {
                   />
                 ))}
               </Dropzone>
-              <button>Save</button>
+
+              <div class={styles.test}>Upload a thumbnail: </div>
+              <Dropzone
+                maxFiles={1}
+                accept="image/png, image/jpeg, image/webp"
+                onChange={updateThumbnails}
+                value={thumbnails}
+              >
+                {thumbnails.map((file: any) => (
+                  <FileMosaic
+                    key={file.id}
+                    {...file}
+                    onDelete={removeThumbnail}
+                    info
+                  />
+                ))}
+              </Dropzone>
+
+              <button
+                onClick={async () => {
+                  await upload();
+                }}
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>
@@ -325,7 +474,9 @@ function MyVideos() {
 
   return (
     <div className={styles.content}>
-      <Video showPopup={showVideoSettings} />
+      {videos.map((video) => {
+        return <Video video={video} showPopup={showVideoSettings} />;
+      })}
       <div onClick={() => showUploadVideo()} class={styles.add_video}>
         +
       </div>
@@ -334,21 +485,20 @@ function MyVideos() {
 }
 
 function Video({
+  video,
   onClick,
   showPopup,
 }: {
+  video: IVideo['data'];
   onClick?: () => h.JSX.Element;
   showPopup: any;
 }) {
   return (
-    <div onClick={() => showPopup()} class={styles.video}>
-      <img
-        src="https://cdn.discordapp.com/attachments/1195575834426220604/1195636639083540581/image.png?ex=65b4b664&is=65a24164&hm=28341ca9d72876bc98df3798b3d3ab31e670718380246f4cce2e1dfa47db33f0&"
-        alt=""
-      />
+    <div onClick={() => showPopup(video)} class={styles.video}>
+      <img src={video.thumbnail_url} alt="" />
       <div class={styles.background} />
       <div class={styles.text}>
-        <div class={styles.title}>Let’s learn react native in 100sec!!</div>
+        <div class={styles.title}>{video.name}</div>
       </div>
     </div>
   );

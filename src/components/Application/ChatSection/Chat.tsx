@@ -2,14 +2,23 @@ import { h } from 'preact';
 import styles from '../../../styles/Application/chat.module.scss';
 import ReactTextareaAutosize from 'react-textarea-autosize';
 
-import { useEffect, useRef, useState } from 'preact/hooks';
-export function ChatSidebar() {
+import { StateUpdater, useEffect, useRef, useState } from 'preact/hooks';
+import { IUser } from 'src/utils/interfaces';
+export function ChatSidebar({
+  send,
+  messages,
+  setMessages,
+}: {
+  send: Function,
+  messages: {user: IUser['data']['user'], message: string}[];
+  setMessages: StateUpdater<{user: IUser['data']['user'], message: string}[]>;
+}) {
+  
   const bottomRef = useRef<any>(null);
-  const [arr, setArr] = useState<string[]>([]);
   const [content, setContent] = useState(``);
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: `smooth` });
-  }, [arr]);
+  }, [messages]);
   return (
     <div className={styles.container}>
       <div className={styles.navbar}>
@@ -25,16 +34,16 @@ export function ChatSidebar() {
             <div>NEW</div>
             <span />
           </div>
-          {arr.map((t, i) => (
+          {messages.map((msg, i) => (
             <div
               key={i}
-              ref={i == arr.length - 1 ? bottomRef : undefined}
+              ref={i == messages.length - 1 ? bottomRef : undefined}
               className={styles.message}
             >
-              <img src="https://i.pravatar.cc/400" />
+              <img src={msg.user.avatar_url} />
               <div className={styles.wrapper}>
-                <div className={styles.username}>Mr.Kasper</div>
-                <div className={styles.content}>{t}</div>
+                <div className={styles.username}>{msg.user.username}</div>
+                <div className={styles.content}>{msg.message}</div>
               </div>
             </div>
           ))}
@@ -56,17 +65,14 @@ export function ChatSidebar() {
             if (e.key === `Enter` && !e.shiftKey) {
               // Don't generate a new line
               e.preventDefault();
-              console.log(arr);
-              setArr((ar) => [...ar, content]);
+              setMessages((ar) => [...ar]);
               setContent(``);
-              // Do something else such as send the message to back-end
-              // ...
+              send(content)
             }
           }}
         />
         <div className={styles.buttons}>
-          <div className={styles.wrapper}>
-          </div>
+          <div className={styles.wrapper}></div>
         </div>
       </div>
     </div>

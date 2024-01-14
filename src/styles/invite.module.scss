@@ -1,0 +1,99 @@
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > .wrapper {
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    padding-block: 40px;
+    min-width: 320px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    & > img {
+      width: 48px;
+      border: 15px;
+    }
+    & > .invited {
+      color: #fff;
+
+      font-family: Oswald;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+    }
+    & > .title {
+      color: #fff;
+
+      font-family: Oswald;
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
+    & > .divider {
+      background: rgba(255, 255, 255, 0.1);
+      width: 42px;
+      height: 1px;
+    }
+    & > .online {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      & > span {
+        width: 8px;
+        height: 8px;
+        border-radius: 100px;
+        background: #90ee90;
+      }
+      color: #90ee90;
+
+      font-family: Oswald;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+    }
+  }
+}
+
+input {
+  margin-top: 10px;
+  width: calc(100% - 80px);
+  height: 100%;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: Oswald;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  padding: 12px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  border: 1px solid rgba(#fff, 0.1);
+  background-color: #111;
+}
+button {
+  cursor: pointer;
+  margin-top: 10px;
+  width: calc(100% - 60px);
+  height: 41px;
+  border-radius: 10px;
+  background: #27ae60;
+  outline: none;
+  border: none;
+
+  color: #fff;
+
+  font-family: Oswald;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}

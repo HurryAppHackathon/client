@@ -31,7 +31,7 @@ export interface IUser {
   };
 }
 
-export type TParties = {data: IParty[]};
+export type TParties = { data: IParty[] };
 
 export interface IParty {
   id: number;
@@ -42,4 +42,31 @@ export interface IParty {
   owner: IUser['data']['user'];
   finished_at: null;
   created_at: string;
+  memberCounter: number;
+  members: IUser['data']['user'][];
+}
+
+export interface IVideo {
+  data: {
+    id: number;
+    user_id: number;
+    name: string;
+    description: string;
+    url: string;
+
+    thumbnail_url: string;
+    is_public: boolean;
+    created_at: string;
+    updated_at: string;
+    owner: IUser['data']['user'];
+  };
+}
+export interface CreatePartyDto {
+  name: string;
+  is_public: string;
+}
+export interface EditVideoDto {
+  name: string;
+  description: string;
+  is_public: string;
 }

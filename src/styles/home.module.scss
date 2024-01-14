@@ -106,11 +106,14 @@
       border: 1px solid #ffffff48;
     }
     & > .video {
+      background-color: red;
       border-radius: 10px;
-      max-width: 336px;
-      max-height: 188px;
+      width: 334px;
+      min-width: 187px;
       position: relative;
       & > img {
+        object-fit: fill;
+        background-color: red;
         width: 100%;
         height: 100%;
       }
@@ -250,6 +253,11 @@
     justify-content: center;
     align-items: center;
     & > .upload_container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
       padding: 20px;
       width: 800px;
       min-height: fit-content;

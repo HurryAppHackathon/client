@@ -31,7 +31,8 @@
   overflow-y: scroll;
   padding-bottom: 50px;
   & > video {
-    object-fit: fill;
+    max-height: 50vh;
+    // object-fit: fill;
     width: 100%;
     height: min-content;
   }

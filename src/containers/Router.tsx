@@ -6,12 +6,14 @@ import { PopupProvider } from 'react-hook-popup';
 import 'video.js/dist/video-js.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { Invite } from './pages/Invite';
 const routes: Route[] = [
   {
     children: [
       { path: `register`, element: <Register /> },
       { path: `login`, element: <Login /> },
       { path: `app/:id`, element: <Application /> },
+      { path: `party/:id`, element: <Invite /> },
       { path: `/`, element: <Home /> },
     ],
   },
