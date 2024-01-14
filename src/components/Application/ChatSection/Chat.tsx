@@ -9,11 +9,10 @@ export function ChatSidebar({
   messages,
   setMessages,
 }: {
-  send: Function,
-  messages: {user: IUser['data']['user'], message: string}[];
-  setMessages: StateUpdater<{user: IUser['data']['user'], message: string}[]>;
+  send: Function;
+  messages: { user: IUser['data']['user']; message: string }[];
+  setMessages: StateUpdater<{ user: IUser['data']['user']; message: string }[]>;
 }) {
-  
   const bottomRef = useRef<any>(null);
   const [content, setContent] = useState(``);
   useEffect(() => {
@@ -67,7 +66,7 @@ export function ChatSidebar({
               e.preventDefault();
               setMessages((ar) => [...ar]);
               setContent(``);
-              send(content)
+              send(content);
             }
           }}
         />

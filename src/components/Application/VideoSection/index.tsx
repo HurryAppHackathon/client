@@ -27,41 +27,41 @@ export function VideoSection({
     };
   }
   useEffect(() => {
-    socket.on('video-seek-receive', ({ time }: { time: number }) => {
-      console.log('recived');
+    socket.on(`video-seek-receive`, ({ time }: { time: number }) => {
+      console.log(`recived`);
       if (video_ref.current) {
         if (Math.abs(video_ref.current.currentTime - time) > 1) {
           video_ref.current.currentTime = time;
         }
       }
     });
-    socket.on('video-pause-receive', () => {
+    socket.on(`video-pause-receive`, () => {
       video_ref.current!.pause();
     });
-    socket.on('video-resume-receive', () => {
+    socket.on(`video-resume-receive`, () => {
       video_ref.current!.play();
     });
   }, []);
 
   function pauseVideoSocket() {
-    socket.emit('video-manage-send', {
+    socket.emit(`video-manage-send`, {
       partyId: party?.id,
-      action: 'pause',
+      action: `pause`,
     });
   }
 
   function resumeVideoSocket() {
-    socket.emit('video-manage-send', {
+    socket.emit(`video-manage-send`, {
       partyId: party?.id,
-      action: 'resume',
+      action: `resume`,
     });
   }
 
   // time in secs
   function seekVideoSocket(time: number) {
-    socket.emit('video-manage-send', {
+    socket.emit(`video-manage-send`, {
       partyId: party?.id,
-      action: 'seek',
+      action: `seek`,
       time,
     });
   }

@@ -19,7 +19,7 @@ export function ChatSection({
   setMessages: StateUpdater<{ user: IUser['data']['user']; message: string }[]>;
 }) {
   useEffect(() => {
-    socket.on('message-receive', (data) => {
+    socket.on(`message-receive`, (data) => {
       setMessages((c) => [...c, data]);
     });
   }, []);

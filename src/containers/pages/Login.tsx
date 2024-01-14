@@ -8,13 +8,13 @@ import { toast } from 'react-toastify';
 export function Login() {
   const client = new ApiClient();
   const onSubmit: SubmitHandler<LoginDto> = async (data) => {
-    let res = await client.login(data);
+    const res = await client.login(data);
     if (res) {
       toast.success(
-        'you are going to be redirected to home page in 3 seconds!',
+        `you are going to be redirected to home page in 3 seconds!`,
       );
       setTimeout(() => {
-        location.href = '/';
+        location.href = `/`;
       }, 3000);
     }
   };
@@ -37,7 +37,7 @@ export function Login() {
               <div class={styles.paragraph}>
                 Create account?
                 <a href="/register" className={styles.login_span}>
-                  {' '}
+                  {` `}
                   Register
                 </a>
               </div>
@@ -45,12 +45,12 @@ export function Login() {
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
-              {...register('username')}
+              {...register(`username`)}
               type="text"
               placeholder={`Username`}
             />
             <input
-              {...register('password')}
+              {...register(`password`)}
               type="password"
               placeholder={`******`}
             />
@@ -76,7 +76,7 @@ export function Login() {
         </div>
       </div>
       <div className={styles.vector_section}>
-        <svg 
+        <svg
           width="104"
           height="104"
           viewBox="0 0 104 104"

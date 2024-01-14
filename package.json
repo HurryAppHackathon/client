@@ -8,9 +8,8 @@
     "serve": "sirv dist --cors --single",
     "lint": "eslint src",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
-    "test": "jest",
-    "postinstall": "husky install"
-  },
+    "test": "jest"
+    },
   "lint-staged": {
     "./src/**/*.{ts,js,jsx,tsx}": [
       "eslint --ignore-path .gitignore --fix",

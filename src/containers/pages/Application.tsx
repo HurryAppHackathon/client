@@ -11,10 +11,10 @@ import { IParty, IUser, IVideo } from '../../utils/interfaces';
 import { ReactLocation, useLocation, useMatch } from '@tanstack/react-location';
 import { io } from 'socket.io-client';
 import { setNextUploadStatus } from '@files-ui/react';
-const socket = io('http://104.248.128.150:3000', {
+const socket = io(`http://104.248.128.150:3000`, {
   autoConnect: true,
   auth: {
-    token: localStorage.getItem('token'),
+    token: localStorage.getItem(`token`),
   },
 });
 export function Application() {
@@ -37,18 +37,18 @@ export function Application() {
     { user: IUser['data']['user']; message: string }[]
   >([]);
   const video_ref = useRef<HTMLVideoElement>();
-  
+
   useEffect(() => {
     (async () => {
       try {
-        let user = await api_client.getUser();
-        let { data: party } = (await api.parties.get(id)).data;
+        const user = await api_client.getUser();
+        const { data: party } = (await api.parties.get(id)).data;
         setUser(user);
         setParty(party);
 
-        console.log('emmitting');
+        console.log(`emmitting`);
         console.log(party);
-        socket.emit('join-party', { partyId: party!.id });
+        socket.emit(`join-party`, { partyId: party!.id });
 
         setLoading(false);
       } catch (err) {
@@ -63,7 +63,7 @@ export function Application() {
 
   useEffect(() => {
     socket.on(
-      'party-joined',
+      `party-joined`,
       ({
         partyId,
         messages,
@@ -81,7 +81,7 @@ export function Application() {
         }
       },
     );
-    socket.on('video-set-receive', ({ video }: { video: IVideo['data'] }) => {
+    socket.on(`video-set-receive`, ({ video }: { video: IVideo['data'] }) => {
       setVideo(video);
     });
     function onConnect() {
@@ -97,22 +97,25 @@ export function Application() {
     }
 
     return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
+      socket.off(`connect`, onConnect);
+      socket.off(`disconnect`, onDisconnect);
     };
   }, []);
 
-
-
   function sendMessage(message: string) {
-    socket.emit('message-send', { partyId: party?.id, message });
+    socket.emit(`message-send`, { partyId: party?.id, message });
   }
 
   // return isJoied ? 'Joined' : 'not joined';
   return (
     <div className={styles.container}>
       <MembersSection party={party} />
-      <VideoSection socket={socket} party={party} video={video} video_ref={video_ref} />
+      <VideoSection
+        socket={socket}
+        party={party}
+        video={video}
+        video_ref={video_ref}
+      />
       <ChatSection
         send={sendMessage}
         socket={socket}

@@ -21,7 +21,7 @@ export function Home() {
         setUser(user);
         setLoading(false);
       } catch (_err) {
-        location.href = '/login';
+        location.href = `/login`;
       }
     })();
   }, []);
@@ -33,16 +33,16 @@ export function Home() {
     description: string;
   }[] = [
     {
-      icon: '',
-      name: 'My videos',
+      icon: ``,
+      name: `My videos`,
       jsx: MyVideos,
-      description: 'You can see all your videos here',
+      description: `You can see all your videos here`,
     },
 
     {
-      icon: '',
-      name: 'Explore',
-      description: "Let's explore",
+      icon: ``,
+      name: `Explore`,
+      description: `Let's explore`,
       jsx: Parties,
     },
   ];
@@ -90,7 +90,7 @@ export function Home() {
       </div>
     </div>
   ) : (
-    'Loading'
+    `Loading`
   );
 }
 
@@ -101,7 +101,7 @@ function Parties() {
   useEffect(() => {
     (async () => {
       try {
-        const parties = (await api.parties.getAll('public')).data;
+        const parties = (await api.parties.getAll(`public`)).data;
         setParties(parties.data);
         setLoading(false);
       } catch (err) {
@@ -110,11 +110,11 @@ function Parties() {
     })();
   }, []);
   const [showCreateParty, hideCreateParty] = usePopup(
-    'create_party',
+    `create_party`,
     CreateParty,
   );
   function CreateParty() {
-    const [name, setName] = useState('');
+    const [name, setName] = useState(``);
     const [isPublic, setPublic] = useState(false);
     return (
       <div class={styles.create_party}>
@@ -128,7 +128,7 @@ function Parties() {
               value={name}
               className={styles.ipt}
               type="text"
-              placeholder={'Name of event'}
+              placeholder={`Name of event`}
             />
             <div
               class={styles.public}
@@ -143,7 +143,7 @@ function Parties() {
                     <svg
                       width={15}
                       height={15}
-                      fill={'rgb(30, 255, 0)'}
+                      fill={`rgb(30, 255, 0)`}
                       clip-rule="evenodd"
                       fill-rule="evenodd"
                       stroke-linejoin="round"
@@ -157,7 +157,7 @@ function Parties() {
                       />
                     </svg>
                   ) : (
-                    ''
+                    ``
                   )}
                 </div>
               </div>
@@ -169,12 +169,12 @@ function Parties() {
                     name,
                     is_public: `${Number(isPublic)}`,
                   });
-                  toast.success('Party has been created!');
+                  toast.success(`Party has been created!`);
                   toast.success(
-                    'you will be redirected into application page in 3 seconds!',
+                    `you will be redirected into application page in 3 seconds!`,
                   );
                   setTimeout(() => {
-                    location.href = '/app/' + res.data.data.id;
+                    location.href = `/app/` + res.data.data.id;
                   }, 3000);
                 } catch (err) {
                   toast.error(err.response.data.message);
@@ -222,15 +222,15 @@ function MyVideos() {
   useEffect(() => {
     (async () => {
       try {
-        const videos = (await api.videos.getAll('own')).data;
+        const videos = (await api.videos.getAll(`own`)).data;
         setVideos(videos.data);
       } catch (err) {
-        toast.error('Something went wrong while getting videos');
+        toast.error(`Something went wrong while getting videos`);
       }
     })();
   }, []);
   const [showVideoSettings, hideVideoSettings] = usePopup(
-    'video_settings',
+    `video_settings`,
     VideoSettings,
   );
   function VideoSettings({ message: video }: { message: IVideo['data'] }) {
@@ -259,15 +259,17 @@ function MyVideos() {
                   onChange={(e) => setName(e.currentTarget.value.toString())}
                   type="text"
                   value={name}
-                  placeholder={'Name'}
+                  placeholder={`Name`}
                 />
                 Description:
                 <input
                   className={styles.ipt}
-                  onChange={(e) => setDescription(e.currentTarget.value.toString())}
+                  onChange={(e) =>
+                    setDescription(e.currentTarget.value.toString())
+                  }
                   type="text"
                   value={description}
-                  placeholder={'Name'}
+                  placeholder={`Name`}
                 />
                 <button
                   onClick={async () => {
@@ -277,7 +279,7 @@ function MyVideos() {
                         description: description,
                         is_public: `${Number(isPublic)}`,
                       });
-                      toast.success('created');
+                      toast.success(`created`);
                     } catch (err) {
                       toast.error(err.response.data.message);
                     }
@@ -298,7 +300,7 @@ function MyVideos() {
                         <svg
                           width={15}
                           height={15}
-                          fill={'rgb(30, 255, 0)'}
+                          fill={`rgb(30, 255, 0)`}
                           clip-rule="evenodd"
                           fill-rule="evenodd"
                           stroke-linejoin="round"
@@ -312,7 +314,7 @@ function MyVideos() {
                           />
                         </svg>
                       ) : (
-                        ''
+                        ``
                       )}
                     </div>
                   </div>
@@ -325,27 +327,27 @@ function MyVideos() {
     );
   }
 
-  const [showUploadVideo, hideUploadVideo] = usePopup('add_video', UploadVideo);
+  const [showUploadVideo, hideUploadVideo] = usePopup(`add_video`, UploadVideo);
   function UploadVideo({ message }: { message: string }) {
     const api = new Api();
     const [isPublic, setPublic] = useState(true);
     const [files, setFiles] = useState<ExtFile[]>([]);
     const [thumbnails, setThumbnails] = useState<ExtFile[]>([]);
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState(``);
     const upload = async () => {
       const body = new FormData();
-      body.append('file', files[0]!.file);
-      body.append('thumbnail', thumbnails[0]!.file);
-      body.append('name', files[0].name);
-      body.append('description', description);
-      body.append('is_public', `${Number(isPublic)}`);
+      body.append(`file`, files[0]!.file);
+      body.append(`thumbnail`, thumbnails[0]!.file);
+      body.append(`name`, files[0].name);
+      body.append(`description`, description);
+      body.append(`is_public`, `${Number(isPublic)}`);
       try {
         await api.videos.upload_videos(body);
-        toast.success("Video has been uploaded!")
-        toast.success("you will be redirected in 3 seconds")
+        toast.success(`Video has been uploaded!`);
+        toast.success(`you will be redirected in 3 seconds`);
         setTimeout(() => {
-          location.href = "/"
-        }, 3000)
+          location.href = `/`;
+        }, 3000);
       } catch (err) {
         toast.error(err.response.data.message);
       }
@@ -353,14 +355,14 @@ function MyVideos() {
 
     const updateFiles = (incommingFiles: any) => {
       //do something with the files
-      console.log('incomming files', incommingFiles);
+      console.log(`incomming files`, incommingFiles);
       setFiles(incommingFiles);
       //even your own upload implementation
     };
 
     const updateThumbnails = (incommingFiles: any) => {
       //do something with the files
-      console.log('incomming files', incommingFiles);
+      console.log(`incomming files`, incommingFiles);
       setThumbnails(incommingFiles);
       //even your own upload implementation
     };
@@ -386,7 +388,7 @@ function MyVideos() {
                 type="text"
                 value={description}
                 onChange={(c) => setDescription(c.currentTarget.value)}
-                placeholder={'Description'}
+                placeholder={`Description`}
               />
 
               <div
@@ -402,7 +404,7 @@ function MyVideos() {
                       <svg
                         width={15}
                         height={15}
-                        fill={'rgb(30, 255, 0)'}
+                        fill={`rgb(30, 255, 0)`}
                         clip-rule="evenodd"
                         fill-rule="evenodd"
                         stroke-linejoin="round"
@@ -416,7 +418,7 @@ function MyVideos() {
                         />
                       </svg>
                     ) : (
-                      ''
+                      ``
                     )}
                   </div>
                 </div>

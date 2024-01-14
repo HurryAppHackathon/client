@@ -43,7 +43,7 @@ export function MembersSection({ party }: { party?: IParty }) {
       <div className={styles.tail}>
         <div className={styles.divider}></div>
         <Wrap
-          onClick={() => (location.href = '/')}
+          onClick={() => (location.href = `/`)}
           image={LeaveSVG as unknown as string}
           color="red"
           title="Leave Party!"

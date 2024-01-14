@@ -1,5 +1,12 @@
 import { h } from 'preact';
-import { Outlet, Router, ReactLocation, Route, useRouter, useLoadRoute } from '@tanstack/react-location';
+import {
+  Outlet,
+  Router,
+  ReactLocation,
+  Route,
+  useRouter,
+  useLoadRoute,
+} from '@tanstack/react-location';
 import { Application, Home, Login, Register } from './pages';
 import '../styles/index.scss';
 import { PopupProvider } from 'react-hook-popup';
@@ -17,11 +24,10 @@ const routes: Route[] = [
       { path: `/`, element: <Home /> },
     ],
   },
-];  
+];
 
 export function App() {
-
-  const location = new ReactLocation(); 
+  const location = new ReactLocation();
   return (
     <Router location={location} routes={routes}>
       <PopupProvider>
