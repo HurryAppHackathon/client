@@ -49,12 +49,14 @@ export function Invite() {
           {party?.memberCounter} online
         </div>
         <input
+        className={styles.ptt}
           onChange={(e) => setName(e.currentTarget.value)}
           value={name}
           placeholder={`What should we call you?`}
           type="text"
         />
         <button
+        className={styles.btt}
           onClick={async () => {
             const api = new ApiClient();
             const res = await api.register({
