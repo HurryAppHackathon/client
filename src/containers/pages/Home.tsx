@@ -32,20 +32,20 @@ export function Home() {
     jsx: () => h.JSX.Element;
     description: string;
   }[] = [
-    {
-      icon: ``,
-      name: `My videos`,
-      jsx: MyVideos,
-      description: `You can see all your videos here`,
-    },
+      {
+        icon: ``,
+        name: `My videos`,
+        jsx: MyVideos,
+        description: `You can see all your videos here`,
+      },
 
-    {
-      icon: ``,
-      name: `Explore`,
-      description: `Let's explore`,
-      jsx: Parties,
-    },
-  ];
+      {
+        icon: ``,
+        name: `Explore`,
+        description: `Let's explore`,
+        jsx: Parties,
+      },
+    ];
 
   const [current, setCurrent] = useState(options[0]);
 
@@ -192,7 +192,7 @@ function Parties() {
     <div class={styles.parties}>
       {parties.map((party) => (
         <div className={styles.party}>
-          <div>
+          <div style={{ flexGrow: 1, width: '100%' }}>
             <img src={party.image_url} alt="" />
             <div class={styles.name}>
               <div class={styles.title}>{party.name}</div>

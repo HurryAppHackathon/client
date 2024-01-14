@@ -1,6 +1,6 @@
 import { Ref, h } from 'preact';
 import styles from '../../../styles/Application/index.module.scss';
-import { IParty, IVideo } from 'src/utils/interfaces';
+import { IParty, IUser, IVideo } from 'src/utils/interfaces';
 import { Socket } from 'socket.io-client';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 import { MutableRef, useEffect, useState } from 'preact/hooks';
@@ -10,11 +10,13 @@ export function VideoSection({
   party,
   video,
   video_ref,
+  user,
 }: {
   socket: Socket<DefaultEventsMap, DefaultEventsMap>;
   party?: IParty;
   video?: IVideo['data'];
   video_ref: MutableRef<HTMLVideoElement | undefined>;
+  user?: IUser
 }) {
   function debounce(func, timeout = 300) {
     let timer: any;
@@ -44,6 +46,7 @@ export function VideoSection({
   }, []);
 
   function pauseVideoSocket() {
+    if (!user?.data.user.id || user?.data.user.id > 3) return; 
     socket.emit(`video-manage-send`, {
       partyId: party?.id,
       action: `pause`,
@@ -51,6 +54,7 @@ export function VideoSection({
   }
 
   function resumeVideoSocket() {
+    if (!user?.data.user.id || user?.data.user.id > 3) return; 
     socket.emit(`video-manage-send`, {
       partyId: party?.id,
       action: `resume`,
@@ -59,6 +63,7 @@ export function VideoSection({
 
   // time in secs
   function seekVideoSocket(time: number) {
+    if (!user?.data.user.id || user?.data.user.id > 3) return; 
     socket.emit(`video-manage-send`, {
       partyId: party?.id,
       action: `seek`,

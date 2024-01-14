@@ -58,6 +58,23 @@ export function Application() {
   }, []);
 
   useEffect(() => {
+    const refreshRate = (!user?.data.user.id || user?.data.user.id > 3) ? 10000 : 1000;
+    
+    const intervalId = setInterval(() => {
+      (async () => {
+        try {
+          const { data: party } = (await api.parties.get(id)).data;
+          setParty(party);
+        } catch (err) {
+          // location.href = "/"
+        }
+      })();
+    }, refreshRate)
+
+    return () => clearInterval(intervalId);
+  }, [user?.data.user.id]);
+
+  useEffect(() => {
     video_ref.current?.load();
   }, [video?.url]);
 
@@ -112,6 +129,7 @@ export function Application() {
       <MembersSection party={party} />
       <VideoSection
         socket={socket}
+        user={user}
         party={party}
         video={video}
         video_ref={video_ref}

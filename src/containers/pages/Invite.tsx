@@ -64,10 +64,14 @@ export function Invite() {
               email: makeid(10) + `@gmail.com`,
               password: `password`,
             });
-            toast.success(`you will be redirected to party in 3 seconds`);
-            setTimeout(() => {
-              location.href = `/app/` + id;
-            }, 3000);
+
+            if (res) {
+              toast.success(`you will be redirected to party in 3 seconds`);
+              setTimeout(() => {
+                location.href = `/app/` + id;
+              }, 3000);
+            }
+
           }}
           type="text"
         >
